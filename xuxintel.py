@@ -5,7 +5,6 @@ import time
 import datetime
 import collections
 from prettytable import PrettyTable
-from flask import Flask
 
 app = Flask(__name__)
 
@@ -20,19 +19,19 @@ made_calls = []
 # 所有电话号码
 nums = {}
 # 过滤组长
-boss = ['何传航', '李美华', '周荣华']
+boss = []
 
 # 录音数据库配置
-server="192.168.18.181"
-user="sa"
-password="88888"
+server="SERVER-IP"
+user="UERNAME"
+password="PASSWORD"
 
 # mysql数据库配置
 config={
-    "host":"127.0.0.1",
-    "user":"root",
-    "password":"root",
-    "database":"db_telcount"
+    "host":"SERVER-IP",
+    "user":"USERNAME",
+    "password":"PASSWORD",
+    "database":"DATABASE"
 }
 
 # 输出表格初始化
@@ -97,17 +96,6 @@ def get_call_rank(datas,number):
         print(u'暂无数据')
         return None
 
-# 获取清洗后的数据
-def get_filtered_data(data,container=None):
-    if container == None:
-        container = []
-    now_time_str = get_now_time()
-    if len(data) != 0:
-        if data['type'] == 'OUT' and data['time'][0] == now_time_str and data['user'] != None:
-            for d in data:
-                container.append(d)
-    return container
-
 # 把人名和呼出次数写入数据库
 def save_to_mysql(config, name, out):
     db = pymysql.connect(**config)
@@ -128,7 +116,6 @@ def tel_name_mysql(config, name, telnum):
     cursor.close()
     db.close()
 
-@app.route('/')
 def main():
     i = 0
     while True:
