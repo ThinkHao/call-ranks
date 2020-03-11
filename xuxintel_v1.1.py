@@ -26,9 +26,9 @@ nums = {}
 boss = []
 
 # 录音数据库配置
-server="192.168.18.181"
-user="sa"
-password="88888"
+server="server_ip"
+user="db_user"
+password="db_password"
 
 # mysql数据库配置
 config={
